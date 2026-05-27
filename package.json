@@ -1,0 +1,33 @@
+{
+  "name": "neoipc-app",
+  "version": "1.0.0",
+  "description": "DHIS2 App Platform application for the NeoIPC Project",
+  "license": "MIT",
+  "private": true,
+  "packageManager": "yarn@1.22.22",
+  "scripts": {
+    "build": "d2-app-scripts build",
+    "start": "d2-app-scripts start",
+    "test": "d2-app-scripts test",
+    "deploy": "d2-app-scripts deploy",
+    "i18n:extract": "d2-app-scripts i18n extract",
+    "i18n:generate": "d2-app-scripts i18n generate",
+    "prebuild": "node scripts/check-schema-drift.mjs"
+  },
+  "dependencies": {
+    "@dhis2/app-runtime": "^3.17.0",
+    "@dhis2/d2-i18n": "^1.2.0",
+    "@dhis2/ui": "^10.16.0",
+    "react": "18",
+    "react-dom": "18",
+    "react-router-dom": "^6"
+  },
+  "devDependencies": {
+    "@dhis2/cli-app-scripts": "12.11.1",
+    "@dhis2/cli-style": "^10.7.10",
+    "@types/jest": "^30.0.0",
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "5"
+  }
+}
