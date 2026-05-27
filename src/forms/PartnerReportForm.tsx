@@ -99,11 +99,15 @@ const elementLabel = (element: PartnerReportElement): string =>
 const LOCALE_OPTIONS = ['', 'en', 'de'] as const
 
 interface PartnerReportFormProps {
-    /** Wired in section 7; the form is render-only for now. */
     onSubmit?: (values: PartnerReportFormValues) => void
+    /** Disable the submit button and show a loading spinner on it. */
+    submitting?: boolean
 }
 
-const PartnerReportForm: FC<PartnerReportFormProps> = ({ onSubmit }) => {
+const PartnerReportForm: FC<PartnerReportFormProps> = ({
+    onSubmit,
+    submitting = false,
+}) => {
     const [values, setValues] = useState<PartnerReportFormValues>(defaultValues)
 
     const setField = <K extends keyof PartnerReportFormValues>(key: K) =>
@@ -396,7 +400,7 @@ const PartnerReportForm: FC<PartnerReportFormProps> = ({ onSubmit }) => {
                 </SingleSelectField>
             </Card>
 
-            <Button primary type="submit">
+            <Button primary type="submit" disabled={submitting} loading={submitting}>
                 {i18n.t('Generate')}
             </Button>
         </form>

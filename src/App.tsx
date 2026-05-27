@@ -16,6 +16,7 @@ import {
     PublicReferenceDataMetadata,
 } from './AppContext'
 import { loadReferenceDataSets } from './api/referenceData'
+import './render/report-theme.css'
 import AppShell from './shell/AppShell'
 
 interface MeQueryResult {

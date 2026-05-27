@@ -95,11 +95,15 @@ const splitPascalCase = (value: string): string =>
         .replace(/^(.)(.*)/, (_, first, rest) => first + rest.toLowerCase())
 
 interface ReferenceReportFormProps {
-    /** Wired in section 7; the form is render-only for now. */
     onSubmit?: (values: ReferenceReportFormValues) => void
+    /** Disable the submit button and show a loading spinner on it. */
+    submitting?: boolean
 }
 
-const ReferenceReportForm: FC<ReferenceReportFormProps> = ({ onSubmit }) => {
+const ReferenceReportForm: FC<ReferenceReportFormProps> = ({
+    onSubmit,
+    submitting = false,
+}) => {
     const { referenceDataSets } = useAppContext()
     const [values, setValues] = useState<ReferenceReportFormValues>(
         defaultValues
@@ -466,7 +470,7 @@ const ReferenceReportForm: FC<ReferenceReportFormProps> = ({ onSubmit }) => {
                 </SingleSelectField>
             </Card>
 
-            <Button primary type="submit">
+            <Button primary type="submit" disabled={submitting} loading={submitting}>
                 {i18n.t('Generate')}
             </Button>
         </form>
