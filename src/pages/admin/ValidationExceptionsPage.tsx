@@ -1,8 +1,9 @@
-import i18n from '@dhis2/d2-i18n'
 import React, { FC } from 'react'
+import AdminListPage from '../../admin/AdminListPage'
+import { validationExceptionsResource } from '../../admin/validationExceptionsResource'
 
 const ValidationExceptionsPage: FC = () => (
-    <h1>{i18n.t('Validation exceptions')}</h1>
+    <AdminListPage resource={validationExceptionsResource} />
 )
 
 export default ValidationExceptionsPage

@@ -1,6 +1,9 @@
-import i18n from '@dhis2/d2-i18n'
 import React, { FC } from 'react'
+import AdminListPage from '../../admin/AdminListPage'
+import { referenceDataResource } from '../../admin/referenceDataResource'
 
-const ReferenceDataPage: FC = () => <h1>{i18n.t('Reference data')}</h1>
+const ReferenceDataPage: FC = () => (
+    <AdminListPage resource={referenceDataResource} />
+)
 
 export default ReferenceDataPage
