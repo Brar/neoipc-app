@@ -1,0 +1,144 @@
+{
+  "fields": [
+    {
+      "name": "referenceDataFile",
+      "type": "character"
+    },
+    {
+      "name": "profile",
+      "type": "character"
+    },
+    {
+      "name": "validationExceptionFile",
+      "type": "character"
+    },
+    {
+      "name": "enabledElements",
+      "type": "character[]",
+      "values": [
+        "BirthWeightFigure",
+        "GestationalAgeFigure",
+        "IncidenceDensityTable",
+        "DeviceAssociatedIncidenceDensityTable",
+        "AgentPerInfectionRateTable",
+        "InfectiousAgentDetectionRateTable",
+        "RiskDensityRateTable",
+        "AntibioticUtilisationTable",
+        "SurgicalProcedureRateTable",
+        "ResistantPathogenInfectionRateTable",
+        "OrganismResistanceRateTable",
+        "AntibioticResistanceTestRateTable",
+        "SecondaryBsiRateTable"
+      ]
+    },
+    {
+      "name": "disabledElements",
+      "type": "character[]",
+      "values": [
+        "BirthWeightFigure",
+        "GestationalAgeFigure",
+        "IncidenceDensityTable",
+        "DeviceAssociatedIncidenceDensityTable",
+        "AgentPerInfectionRateTable",
+        "InfectiousAgentDetectionRateTable",
+        "RiskDensityRateTable",
+        "AntibioticUtilisationTable",
+        "SurgicalProcedureRateTable",
+        "ResistantPathogenInfectionRateTable",
+        "OrganismResistanceRateTable",
+        "AntibioticResistanceTestRateTable",
+        "SecondaryBsiRateTable"
+      ]
+    },
+    {
+      "name": "unitCodes",
+      "type": "character[]",
+      "description": "Department codes (NeoIPC site codes) to include in this report.\nMultiple codes are aggregated into one combined render; the\nsubtitle lists them, comma-separated."
+    },
+    {
+      "name": "reportingPeriodFrom",
+      "type": "Date",
+      "description": "Start of the reporting period (inclusive)."
+    },
+    {
+      "name": "reportingPeriodTo",
+      "type": "Date",
+      "description": "End of the reporting period (inclusive)."
+    },
+    {
+      "name": "birthWeightFrom",
+      "type": "integer",
+      "min": "0",
+      "max": "65535",
+      "description": "Lower bound (inclusive) of the birth-weight filter, in grams."
+    },
+    {
+      "name": "birthWeightTo",
+      "type": "integer",
+      "min": "0",
+      "max": "65535",
+      "description": "Upper bound (inclusive) of the birth-weight filter, in grams."
+    },
+    {
+      "name": "gestationalAgeFrom",
+      "type": "integer",
+      "min": "0",
+      "max": "52",
+      "description": "Lower bound (inclusive) of the gestational-age filter, in weeks."
+    },
+    {
+      "name": "gestationalAgeTo",
+      "type": "integer",
+      "min": "0",
+      "max": "52",
+      "description": "Upper bound (inclusive) of the gestational-age filter, in weeks."
+    },
+    {
+      "name": "includeNonCorePatients",
+      "type": "logical",
+      "description": "Include patients not in the surveillance core cohort."
+    },
+    {
+      "name": "includeTestData",
+      "type": "logical",
+      "default": "false",
+      "description": "Include departments flagged as test units."
+    },
+    {
+      "name": "sparseDataThreshold",
+      "type": "integer",
+      "default": "16",
+      "min": "1",
+      "description": "Threshold for sparse-data handling."
+    },
+    {
+      "name": "confidenceIntervals",
+      "type": "character",
+      "default": "rate",
+      "values": [
+        "all",
+        "rate",
+        "none"
+      ],
+      "description": "Confidence-interval display mode."
+    },
+    {
+      "name": "includeIntroductionTexts",
+      "type": "logical",
+      "default": "true",
+      "description": "Include report-section introduction texts."
+    },
+    {
+      "name": "includeMethodsTexts",
+      "type": "logical",
+      "default": "true",
+      "description": "Include report-section methods texts."
+    },
+    {
+      "name": "includeOutlierInterpretation",
+      "type": "logical",
+      "default": "false",
+      "description": "Include outlier-interpretation prose alongside outlier callouts."
+    }
+  ]
+}
