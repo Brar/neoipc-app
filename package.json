@@ -17,6 +17,7 @@
   "dependencies": {
     "@dhis2/app-runtime": "^3.17.0",
     "@dhis2/d2-i18n": "^1.2.0",
+    "@dhis2/data-engine": "3.17.0",
     "@dhis2/ui": "^10.16.0",
     "react": "18",
     "react-dom": "18",
