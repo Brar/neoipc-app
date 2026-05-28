@@ -86,7 +86,7 @@ const OrganisationUnitMultiSelect: FC<OrganisationUnitMultiSelectProps> = ({
     if (error) {
         return (
             <NoticeBox error title={label}>
-                {i18n.t('Failed to load organisation units: {{message}}', {
+                {i18n.t('Failed to load organisation units — {{message}}', {
                     message: error.message,
                 })}
             </NoticeBox>
