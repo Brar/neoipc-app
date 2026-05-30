@@ -29,20 +29,24 @@ const formatPeriod = (item: AdminReferenceDataMetadata): string => {
 export const referenceDataResource: AdminResourceType<AdminReferenceDataMetadata> =
     {
         segment: 'reference-data',
-        title: 'Reference data',
-        singular: 'reference dataset',
-        plural: 'Reference datasets',
+        title: () => i18n.t('Reference data'),
+        singular: () => i18n.t('reference dataset'),
+        plural: () => i18n.t('Reference datasets'),
         accept: 'application/json',
         uploadContentType: 'application/json',
-        displayNameHelp:
-            'Operator-facing label that appears in the picker on the Reference Report form.',
+        displayNameHelp: () =>
+            i18n.t(
+                'Operator-facing label that appears in the picker on the Reference Report form.'
+            ),
         extraColumns: [
             {
-                label: 'Reporting period',
+                id: 'reportingPeriod',
+                label: () => i18n.t('Reporting period'),
                 render: formatPeriod,
             },
             {
-                label: 'Countries',
+                id: 'countries',
+                label: () => i18n.t('Countries'),
                 render: (item) =>
                     item.countries && item.countries.length > 0
                         ? item.countries.join(', ')

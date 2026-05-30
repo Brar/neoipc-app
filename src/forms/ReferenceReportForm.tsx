@@ -19,6 +19,7 @@ import OrganisationUnitMultiSelect from './fields/OrganisationUnitMultiSelect'
 import {
     ConfidenceIntervalMode,
     ConfidenceIntervalModeValues,
+    confidenceIntervalModeLabel,
     ReferenceReportElement,
     ReferenceReportElementValues,
     ReferenceReportSectionText,
@@ -326,7 +327,7 @@ const ReferenceReportForm: FC<ReferenceReportFormProps> = ({
                         <SingleSelectOption
                             key={mode}
                             value={mode}
-                            label={mode}
+                            label={confidenceIntervalModeLabel(mode)}
                         />
                     ))}
                 </SingleSelectField>

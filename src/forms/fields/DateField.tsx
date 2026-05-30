@@ -17,7 +17,7 @@ interface DateFieldProps {
  * format for the backend's `DateOnly` parameters
  * (`ReportingPeriodFrom`, `ReportingPeriodTo`, etc.). Wraps
  * `@dhis2/ui`'s `CalendarInput` which calls `onDateSelect` with
- * `null` for "cleared" or `{ dateCalendarString: 'YYYY-MM-DD' }` for
+ * `null` for "cleared" or `{ calendarDateString: 'YYYY-MM-DD' }` for
  * a selection — we normalise both to a plain string.
  */
 const DateField: FC<DateFieldProps> = ({

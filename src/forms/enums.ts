@@ -1,3 +1,5 @@
+import i18n from '@dhis2/d2-i18n'
+
 /**
  * Vendored copies of the backend's report-parameter enums. Kept in
  * sync with the corresponding C# enums in
@@ -63,6 +65,34 @@ export const ReferenceReportSectionTextValues = [
 export type ReferenceReportSectionText =
     (typeof ReferenceReportSectionTextValues)[number]
 
-export const ConfidenceIntervalModeValues = ['All', 'Rate', 'None'] as const
+/**
+ * Wire values for the `confidenceIntervals` query parameter. The backend
+ * (`ConfidenceIntervalMode.cs` and the vendored `partner-report.json` /
+ * `reference-report.json` schemas) declares the accepted values as
+ * lowercase tokens, so these strings go directly onto the wire.
+ *
+ * Use {@link confidenceIntervalModeLabel} to render a localised
+ * title-cased label for UI display.
+ */
+export const ConfidenceIntervalModeValues = ['all', 'rate', 'none'] as const
 
 export type ConfidenceIntervalMode = (typeof ConfidenceIntervalModeValues)[number]
+
+/**
+ * Localised display label for a {@link ConfidenceIntervalMode}. Uses a
+ * switch with literal `i18n.t('...')` calls so the d2-i18n extractor
+ * picks the strings up into `i18n/en.pot`; passing `mode` directly to
+ * `i18n.t` would be a dynamic argument that the extractor skips.
+ */
+export const confidenceIntervalModeLabel = (
+    mode: ConfidenceIntervalMode
+): string => {
+    switch (mode) {
+        case 'all':
+            return i18n.t('All')
+        case 'rate':
+            return i18n.t('Rate')
+        case 'none':
+            return i18n.t('None')
+    }
+}

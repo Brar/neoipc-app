@@ -113,7 +113,7 @@ function AdminListPage<T extends AdminResourceMetadata>({
 
     return (
         <>
-            <h1>{i18n.t(resource.title)}</h1>
+            <h1>{resource.title()}</h1>
 
             <Card>
                 <h2>{i18n.t('Upload')}</h2>
@@ -127,7 +127,7 @@ function AdminListPage<T extends AdminResourceMetadata>({
                         name="displayName"
                         label={i18n.t('Display name')}
                         helpText={
-                            resource.displayNameHelp ??
+                            resource.displayNameHelp?.() ??
                             i18n.t('Optional; blank uses a timestamp-based default.')
                         }
                         value={displayName}
@@ -153,7 +153,7 @@ function AdminListPage<T extends AdminResourceMetadata>({
             </Card>
 
             <Card>
-                <h2>{i18n.t(resource.plural)}</h2>
+                <h2>{resource.plural()}</h2>
                 {loadError && (
                     <NoticeBox error title={i18n.t('Failed to load list')}>
                         {loadError.message}
@@ -180,8 +180,8 @@ function AdminListPage<T extends AdminResourceMetadata>({
                                     {i18n.t('Uploaded')}
                                 </DataTableColumnHeader>
                                 {resource.extraColumns.map((col) => (
-                                    <DataTableColumnHeader key={col.label}>
-                                        {i18n.t(col.label)}
+                                    <DataTableColumnHeader key={col.id}>
+                                        {col.label()}
                                     </DataTableColumnHeader>
                                 ))}
                                 <DataTableColumnHeader>
@@ -215,7 +215,7 @@ function AdminListPage<T extends AdminResourceMetadata>({
                                         {formatDate(item.createdAt)}
                                     </DataTableCell>
                                     {resource.extraColumns.map((col) => (
-                                        <DataTableCell key={col.label}>
+                                        <DataTableCell key={col.id}>
                                             {col.render(item)}
                                         </DataTableCell>
                                     ))}

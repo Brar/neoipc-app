@@ -7,6 +7,13 @@ import type { AdminResourceMetadata } from '../api/admin'
  * (e.g. signature images, certificate templates) can be added by
  * dropping in another config — no per-resource page component
  * needed.
+ *
+ * User-facing strings (`title`, `singular`, `plural`, `displayNameHelp`,
+ * `extraColumns[].label`) are declared as `() => string` thunks rather
+ * than plain strings so each call site can use a literal
+ * `i18n.t('...')` invocation that the `@dhis2/d2-i18n` extractor
+ * picks up into `i18n/en.pot`. Passing the strings as variables to
+ * `i18n.t` at render time would defeat the extractor.
  */
 export interface AdminResourceType<
     T extends AdminResourceMetadata = AdminResourceMetadata,
@@ -14,11 +21,11 @@ export interface AdminResourceType<
     /** URL segment under `/neoipc/api/admin/` (e.g. `reference-data`). */
     segment: string
     /** Page heading. */
-    title: string
+    title: () => string
     /** Singular label for snackbars: "reference dataset", "validation exception file". */
-    singular: string
+    singular: () => string
     /** Plural label for headings / counts: "reference datasets". */
-    plural: string
+    plural: () => string
     /** `accept` attribute on the file input (`application/json`, `text/csv`, …). */
     accept: string
     /**
@@ -29,14 +36,16 @@ export interface AdminResourceType<
      */
     uploadContentType: string | null
     /** Help text for the displayName input, if any. */
-    displayNameHelp?: string
+    displayNameHelp?: () => string
     /** Resource-specific columns rendered after the standard ones. */
     extraColumns: ReadonlyArray<AdminResourceColumn<T>>
 }
 
 export interface AdminResourceColumn<T extends AdminResourceMetadata> {
+    /** Stable identifier for React keys (locale-independent). */
+    id: string
     /** Column header. */
-    label: string
+    label: () => string
     /** Cell renderer; returns React-renderable content. */
     render: (item: T) => ReactNode
 }

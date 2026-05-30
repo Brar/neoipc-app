@@ -19,6 +19,7 @@ import OrganisationUnitMultiSelect from './fields/OrganisationUnitMultiSelect'
 import {
     ConfidenceIntervalMode,
     ConfidenceIntervalModeValues,
+    confidenceIntervalModeLabel,
     PartnerReportElement,
     PartnerReportElementValues,
 } from './enums'
@@ -286,7 +287,7 @@ const PartnerReportForm: FC<PartnerReportFormProps> = ({
                         <SingleSelectOption
                             key={mode}
                             value={mode}
-                            label={mode}
+                            label={confidenceIntervalModeLabel(mode)}
                         />
                     ))}
                 </SingleSelectField>

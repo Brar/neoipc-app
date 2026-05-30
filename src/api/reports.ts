@@ -1,3 +1,4 @@
+import i18n from '@dhis2/d2-i18n'
 import { fetchNeoipcReporting } from './neoipcReporting'
 import type { PartnerReportFormValues } from '../forms/PartnerReportForm'
 import type { ReferenceReportFormValues } from '../forms/ReferenceReportForm'
@@ -243,21 +244,27 @@ export const renderPartnerReport = async (
     baseUrl: string,
     values: PartnerReportFormValues
 ): Promise<RenderResult> => {
+    if (values.mode === 'dataFile' && values.dataFile === null) {
+        throw new Error(
+            i18n.t('Please select a data file before submitting.')
+        )
+    }
+
     const format = values.outputFormat
     const qs = buildPartnerReportQuery(values, format)
     const path = `/partner-report?${qs.toString()}`
     const accept = ACCEPT_BY_FORMAT[format]
 
     const init: RequestInit =
-        values.mode === 'dataFile' && values.dataFile !== null
+        values.mode === 'dataFile'
             ? {
                   method: 'POST',
                   headers: {
                       Accept: accept,
                       'Content-Type':
-                          values.dataFile.type || 'application/json',
+                          values.dataFile!.type || 'application/json',
                   },
-                  body: values.dataFile,
+                  body: values.dataFile!,
               }
             : {
                   method: 'GET',
