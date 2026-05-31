@@ -64,7 +64,7 @@ export const adminUpload = async <T extends AdminResourceMetadata>(
 ): Promise<T> => {
     const headers: Record<string, string> = {
         Accept: 'application/json',
-        'Content-Type': contentType ?? file.type ?? 'application/octet-stream',
+        'Content-Type': contentType ?? (file.type || 'application/octet-stream'),
     }
     const qs = new URLSearchParams()
     if (displayName !== '') qs.append('displayName', displayName)

@@ -15,6 +15,7 @@ import {
     MeData,
     PublicReferenceDataMetadata,
 } from './AppContext'
+import { NeoipcReportingError } from './api/neoipcReporting'
 import { loadReferenceDataSets } from './api/referenceData'
 import './render/report-theme.css'
 import AppShell from './shell/AppShell'
@@ -50,7 +51,21 @@ const App: FC = () => {
                 if (!cancelled) setReferenceDataSets(sets)
             })
             .catch((err: Error) => {
-                if (!cancelled) setRefDataError(err)
+                if (cancelled) return
+                // A 401/403 here means the user has no NeoIPC access (or no
+                // session for the /neoipc/ mount). Treat as an empty list so
+                // AppShell can render its dedicated "No NeoIPC access" notice
+                // — keyed off the user's authorities — instead of the generic
+                // "Failed to load NeoIPC app data" error notice below.
+                if (
+                    err instanceof NeoipcReportingError &&
+                    (err.response.status === 401 ||
+                        err.response.status === 403)
+                ) {
+                    setReferenceDataSets([])
+                    return
+                }
+                setRefDataError(err)
             })
         return () => {
             cancelled = true
