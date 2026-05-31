@@ -1,0 +1,166 @@
+{
+  "fields": [
+    {
+      "name": "referenceDataId",
+      "type": "character"
+    },
+    {
+      "name": "profile",
+      "type": "character"
+    },
+    {
+      "name": "validationExceptionFile",
+      "type": "character"
+    },
+    {
+      "name": "enabledElements",
+      "type": "character[]",
+      "values": [
+        "BirthWeightFigure",
+        "GestationalAgeFigure",
+        "IncidenceDensityTable",
+        "DeviceAssociatedIncidenceDensityTable",
+        "AgentPerInfectionRateTable",
+        "ResistantPathogenInfectionRateTable",
+        "OrganismResistanceRateTable",
+        "InfectiousAgentDetectionRateTable",
+        "AntibioticResistanceTestRateTable",
+        "RiskDensityRateTable",
+        "AntibioticUtilisationTable",
+        "SurgicalProcedureRateTable",
+        "SecondaryBsiRateTable"
+      ]
+    },
+    {
+      "name": "disabledElements",
+      "type": "character[]",
+      "values": [
+        "BirthWeightFigure",
+        "GestationalAgeFigure",
+        "IncidenceDensityTable",
+        "DeviceAssociatedIncidenceDensityTable",
+        "AgentPerInfectionRateTable",
+        "ResistantPathogenInfectionRateTable",
+        "OrganismResistanceRateTable",
+        "InfectiousAgentDetectionRateTable",
+        "AntibioticResistanceTestRateTable",
+        "RiskDensityRateTable",
+        "AntibioticUtilisationTable",
+        "SurgicalProcedureRateTable",
+        "SecondaryBsiRateTable"
+      ]
+    },
+    {
+      "name": "enabledSectionTexts",
+      "type": "character[]",
+      "values": [
+        "PatientPopulation",
+        "Nosocomial",
+        "InfectiousAgents",
+        "RiskFactors",
+        "Surgery"
+      ]
+    },
+    {
+      "name": "disabledSectionTexts",
+      "type": "character[]",
+      "values": [
+        "PatientPopulation",
+        "Nosocomial",
+        "InfectiousAgents",
+        "RiskFactors",
+        "Surgery"
+      ]
+    },
+    {
+      "name": "reportingPeriodFrom",
+      "type": "Date",
+      "description": "Start of the reporting period (inclusive)."
+    },
+    {
+      "name": "reportingPeriodTo",
+      "type": "Date",
+      "description": "End of the reporting period (inclusive)."
+    },
+    {
+      "name": "birthWeightFrom",
+      "type": "integer",
+      "min": "0",
+      "max": "65535",
+      "description": "Lower bound (inclusive) of the birth-weight filter, in grams."
+    },
+    {
+      "name": "birthWeightTo",
+      "type": "integer",
+      "min": "0",
+      "max": "65535",
+      "description": "Upper bound (inclusive) of the birth-weight filter, in grams."
+    },
+    {
+      "name": "gestationalAgeFrom",
+      "type": "integer",
+      "min": "0",
+      "max": "52",
+      "description": "Lower bound (inclusive) of the gestational-age filter, in weeks."
+    },
+    {
+      "name": "gestationalAgeTo",
+      "type": "integer",
+      "min": "0",
+      "max": "52",
+      "description": "Upper bound (inclusive) of the gestational-age filter, in weeks."
+    },
+    {
+      "name": "countryFilter",
+      "type": "character[]",
+      "description": "ISO 3166-1 alpha-2 country codes to include."
+    },
+    {
+      "name": "hospitalFilter",
+      "type": "character[]",
+      "description": "Hospital codes (NeoIPC site codes) to include."
+    },
+    {
+      "name": "testUnitFilter",
+      "type": "logical",
+      "default": "true",
+      "description": "Apply the test-unit filter."
+    },
+    {
+      "name": "defaultPatientFilter",
+      "type": "logical",
+      "default": "true",
+      "description": "Apply the default patient filter."
+    },
+    {
+      "name": "sparseDataThreshold",
+      "type": "integer",
+      "default": "16",
+      "min": "1",
+      "description": "Threshold for sparse-data handling."
+    },
+    {
+      "name": "confidenceIntervals",
+      "type": "character",
+      "default": "all",
+      "values": [
+        "all",
+        "rate",
+        "none"
+      ],
+      "description": "Confidence-interval display mode."
+    },
+    {
+      "name": "includeIntroductionTexts",
+      "type": "logical",
+      "default": "true",
+      "description": "Include report-section introduction texts."
+    },
+    {
+      "name": "includeMethodsTexts",
+      "type": "logical",
+      "default": "true",
+      "description": "Include report-section methods texts."
+    }
+  ]
+}

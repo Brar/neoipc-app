@@ -1,0 +1,97 @@
+/*
+ * Theme + print overrides for the inline-rendered HTML report.
+ *
+ * Imported once at app start. Lives outside the prefix-scoped CSS
+ * that the backend hoists from the report fragment, so it wins
+ * specificity ties on the few elements where Quarto's minimal output
+ * would otherwise default to a non-DHIS2-looking style.
+ *
+ * Container id is fixed by the backend transformer — see
+ * `src/render/InlineHtmlReport.tsx` and
+ * `tasks/neoipc-reporting-html-fragment-mode.md`.
+ */
+
+#neoipc-rendered-report {
+    font-family: var(--theme-fonts, 'Roboto, sans-serif');
+    color: var(--colors-grey900, #212934);
+    line-height: 1.5;
+    padding: var(--spacers-dp16, 16px);
+}
+
+#neoipc-rendered-report h1,
+#neoipc-rendered-report h2,
+#neoipc-rendered-report h3,
+#neoipc-rendered-report h4,
+#neoipc-rendered-report h5,
+#neoipc-rendered-report h6 {
+    color: var(--colors-grey900, #212934);
+    margin-top: var(--spacers-dp24, 24px);
+    margin-bottom: var(--spacers-dp12, 12px);
+    font-weight: 500;
+}
+
+#neoipc-rendered-report h1 { font-size: 28px; }
+#neoipc-rendered-report h2 { font-size: 22px; }
+#neoipc-rendered-report h3 { font-size: 18px; }
+#neoipc-rendered-report h4 { font-size: 16px; }
+
+#neoipc-rendered-report p,
+#neoipc-rendered-report ul,
+#neoipc-rendered-report ol {
+    margin: var(--spacers-dp8, 8px) 0;
+}
+
+#neoipc-rendered-report table {
+    border-collapse: collapse;
+    margin: var(--spacers-dp16, 16px) 0;
+    width: 100%;
+}
+
+#neoipc-rendered-report th,
+#neoipc-rendered-report td {
+    padding: var(--spacers-dp8, 8px) var(--spacers-dp12, 12px);
+    border-bottom: 1px solid var(--colors-grey300, #d5dde5);
+    text-align: left;
+    vertical-align: top;
+}
+
+#neoipc-rendered-report th {
+    background: var(--colors-grey100, #f3f5f7);
+    font-weight: 500;
+}
+
+#neoipc-rendered-report figure {
+    margin: var(--spacers-dp16, 16px) 0;
+}
+
+#neoipc-rendered-report figcaption {
+    color: var(--colors-grey700, #4a5768);
+    font-size: 14px;
+    margin-top: var(--spacers-dp4, 4px);
+}
+
+/*
+ * Print isolation: when the user prints the page, hide everything
+ * except the rendered report. The fragment's own `@media print` rules
+ * (already prefix-scoped to this container by the backend) still
+ * apply on top.
+ *
+ * `visibility: hidden` rather than `display: none` so layout
+ * containers stay measurable for the print engine.
+ */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #neoipc-rendered-report,
+    #neoipc-rendered-report * {
+        visibility: visible;
+    }
+    #neoipc-rendered-report {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        padding: 0;
+    }
+}

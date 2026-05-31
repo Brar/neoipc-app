@@ -1,37 +1,112 @@
-import { useDataQuery } from '@dhis2/app-runtime'
+import { useConfig, useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
-import React, { FC } from 'react'
-import classes from './App.module.css'
+import {
+    Center,
+    CircularLoader,
+    CssReset,
+    CssVariables,
+    HeaderBar,
+    NoticeBox,
+} from '@dhis2/ui'
+import React, { FC, useEffect, useState } from 'react'
+import { HashRouter } from 'react-router-dom'
+import {
+    AppContextProvider,
+    MeData,
+    PublicReferenceDataMetadata,
+} from './AppContext'
+import { NeoipcReportingError } from './api/neoipcReporting'
+import { loadReferenceDataSets } from './api/referenceData'
+import './render/report-theme.css'
+import AppShell from './shell/AppShell'
 
-interface QueryResults {
-    me: {
-        name: string
-    }
+interface MeQueryResult {
+    me: MeData
 }
 
-const query = {
+const meQuery = {
     me: {
         resource: 'me',
+        params: { fields: 'id,authorities' },
     },
 }
 
-const MyApp: FC = () => {
-    const { error, loading, data } = useDataQuery<QueryResults>(query)
+const App: FC = () => {
+    const { baseUrl } = useConfig()
+    const {
+        loading: meLoading,
+        error: meError,
+        data: meData,
+    } = useDataQuery<MeQueryResult>(meQuery)
 
-    if (error) {
-        return <span>{i18n.t('ERROR')}</span>
-    }
+    const [referenceDataSets, setReferenceDataSets] = useState<
+        PublicReferenceDataMetadata[] | null
+    >(null)
+    const [refDataError, setRefDataError] = useState<Error | null>(null)
 
-    if (loading) {
-        return <span>{i18n.t('Loading...')}</span>
-    }
+    useEffect(() => {
+        let cancelled = false
+        loadReferenceDataSets(baseUrl)
+            .then((sets) => {
+                if (!cancelled) setReferenceDataSets(sets)
+            })
+            .catch((err: Error) => {
+                if (cancelled) return
+                // A 401/403 here means the user has no NeoIPC access (or no
+                // session for the /neoipc/ mount). Treat as an empty list so
+                // AppShell can render its dedicated "No NeoIPC access" notice
+                // — keyed off the user's authorities — instead of the generic
+                // "Failed to load NeoIPC app data" error notice below.
+                if (
+                    err instanceof NeoipcReportingError &&
+                    (err.response.status === 401 ||
+                        err.response.status === 403)
+                ) {
+                    setReferenceDataSets([])
+                    return
+                }
+                setRefDataError(err)
+            })
+        return () => {
+            cancelled = true
+        }
+    }, [baseUrl])
+
+    const loading = meLoading || (referenceDataSets === null && refDataError === null)
+    const error = meError ?? refDataError
 
     return (
-        <div className={classes.container}>
-            <h1>{i18n.t('Hello {{name}}', { name: data?.me?.name })}</h1>
-            <h3>{i18n.t('Welcome to DHIS2 with TypeScript!')}</h3>
-        </div>
+        <>
+            <CssReset />
+            <CssVariables colors spacers theme />
+            <HeaderBar appName={i18n.t('NeoIPC')} />
+            {loading ? (
+                <Center>
+                    <CircularLoader />
+                </Center>
+            ) : error || !meData || !referenceDataSets ? (
+                <Center>
+                    <NoticeBox
+                        error
+                        title={i18n.t('Failed to load NeoIPC app data')}
+                    >
+                        {error?.message ?? i18n.t('Unknown error')}
+                    </NoticeBox>
+                </Center>
+            ) : (
+                <AppContextProvider
+                    value={{
+                        me: meData.me,
+                        referenceDataSets,
+                    }}
+                >
+                    <HashRouter>
+                        <AppShell />
+                    </HashRouter>
+                </AppContextProvider>
+            )}
+        </>
     )
 }
 
-export default MyApp
+export default App
