@@ -49,8 +49,9 @@ interface OrganisationUnitMultiSelectProps {
  * Values are orgUnit `code` strings — the wire format
  * `Partner-/Reference-Report`'s `UnitCodes` / `CountryFilter` /
  * `HospitalFilter` parameters expect. OrgUnits without a `code` are
- * filtered out (un-pickable; surface as a warning so they get added
- * upstream in NeoIPC metadata).
+ * filtered out (un-pickable) and a `NoticeBox` warning is rendered
+ * alongside the select so operators know to ask the NeoIPC metadata
+ * maintainers to add the missing codes upstream.
  */
 const OrganisationUnitMultiSelect: FC<OrganisationUnitMultiSelectProps> = ({
     name,
@@ -94,6 +95,9 @@ const OrganisationUnitMultiSelect: FC<OrganisationUnitMultiSelectProps> = ({
     }
 
     const rows = data?.ous.organisationUnits ?? []
+    const rowsWithoutCode = rows.filter(
+        (row) => row.code === null || row.code === ''
+    )
     const options = rows
         .filter((row) => row.code !== null && row.code !== '')
         .map((row) => ({
@@ -106,7 +110,21 @@ const OrganisationUnitMultiSelect: FC<OrganisationUnitMultiSelectProps> = ({
         .sort((a, b) => a.label.localeCompare(b.label))
 
     return (
-        <MultiSelectField
+        <>
+            {rowsWithoutCode.length > 0 && (
+                <NoticeBox
+                    warning
+                    title={i18n.t(
+                        '{{count}} organisation unit(s) missing a code and not selectable',
+                        { count: rowsWithoutCode.length }
+                    )}
+                >
+                    {i18n.t(
+                        'These org units cannot be picked because they have no `code` set in DHIS2 metadata. Ask the NeoIPC metadata maintainers to add a code so they can be included in reports.'
+                    )}
+                </NoticeBox>
+            )}
+            <MultiSelectField
             dataTest={name}
             label={label}
             helpText={helpText}
@@ -128,7 +146,8 @@ const OrganisationUnitMultiSelect: FC<OrganisationUnitMultiSelectProps> = ({
                     label={option.label}
                 />
             ))}
-        </MultiSelectField>
+            </MultiSelectField>
+        </>
     )
 }
 

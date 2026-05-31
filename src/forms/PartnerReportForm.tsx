@@ -22,6 +22,7 @@ import {
     confidenceIntervalModeLabel,
     PartnerReportElement,
     PartnerReportElementValues,
+    reportElementLabel,
 } from './enums'
 
 type PartnerReportMode = 'online' | 'dataFile'
@@ -88,14 +89,6 @@ const defaultValues: PartnerReportFormValues = {
     locale: '',
     outputFormat: 'html',
 }
-
-const elementLabel = (element: PartnerReportElement): string =>
-    // Whitespace-broken PascalCase: "BirthWeightFigure" → "Birth weight figure".
-    // Single-pass split + lowercase for everything after the first word.
-    element
-        .replace(/([A-Z])/g, ' $1')
-        .trim()
-        .replace(/^(.)(.*)/, (_, first, rest) => first + rest.toLowerCase())
 
 const LOCALE_OPTIONS = ['', 'en', 'de'] as const
 
@@ -352,7 +345,7 @@ const PartnerReportForm: FC<PartnerReportFormProps> = ({
                         <MultiSelectOption
                             key={element}
                             value={element}
-                            label={elementLabel(element)}
+                            label={reportElementLabel(element)}
                         />
                     ))}
                 </MultiSelectField>
@@ -369,7 +362,7 @@ const PartnerReportForm: FC<PartnerReportFormProps> = ({
                         <MultiSelectOption
                             key={element}
                             value={element}
-                            label={elementLabel(element)}
+                            label={reportElementLabel(element)}
                         />
                     ))}
                 </MultiSelectField>

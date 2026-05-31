@@ -1,4 +1,8 @@
-import { fetchNeoipcReporting, neoipcReportingUrl } from './neoipcReporting'
+import {
+    fetchNeoipcReporting,
+    neoipcReportingUrl,
+    NeoipcReportingError,
+} from './neoipcReporting'
 
 /**
  * Fields every admin-listed resource exposes. Backend equivalents:
@@ -92,11 +96,7 @@ export const adminDelete = async (
             method: 'DELETE',
         })
     } catch (err) {
-        if (
-            err instanceof Error &&
-            'response' in err &&
-            (err as { response: Response }).response.status === 404
-        ) {
+        if (err instanceof NeoipcReportingError && err.response.status === 404) {
             return
         }
         throw err

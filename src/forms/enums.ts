@@ -96,3 +96,72 @@ export const confidenceIntervalModeLabel = (
             return i18n.t('None')
     }
 }
+
+/**
+ * Localised display label for a {@link PartnerReportElement} or
+ * {@link ReferenceReportElement}. The wire identifiers are PascalCase
+ * C# enum names; the labels here are the operator-facing sentence-case
+ * strings that appear in the report-element selector. Mapped per value
+ * (rather than computed by splitting PascalCase) so each label is a
+ * literal `i18n.t('...')` call that the d2-i18n extractor picks up,
+ * and so individual labels can be copyedited or abbreviated
+ * independently of the wire identifiers (e.g. capitalising acronyms
+ * like `BSI`).
+ *
+ * `PartnerReportElement` and `ReferenceReportElement` currently share
+ * the same set of values, so one helper covers both.
+ */
+export const reportElementLabel = (
+    element: PartnerReportElement | ReferenceReportElement
+): string => {
+    switch (element) {
+        case 'BirthWeightFigure':
+            return i18n.t('Birth weight figure')
+        case 'GestationalAgeFigure':
+            return i18n.t('Gestational age figure')
+        case 'IncidenceDensityTable':
+            return i18n.t('Incidence density table')
+        case 'DeviceAssociatedIncidenceDensityTable':
+            return i18n.t('Device-associated incidence density table')
+        case 'AgentPerInfectionRateTable':
+            return i18n.t('Agent per infection rate table')
+        case 'InfectiousAgentDetectionRateTable':
+            return i18n.t('Infectious agent detection rate table')
+        case 'RiskDensityRateTable':
+            return i18n.t('Risk density rate table')
+        case 'AntibioticUtilisationTable':
+            return i18n.t('Antibiotic utilisation table')
+        case 'SurgicalProcedureRateTable':
+            return i18n.t('Surgical procedure rate table')
+        case 'ResistantPathogenInfectionRateTable':
+            return i18n.t('Resistant pathogen infection rate table')
+        case 'OrganismResistanceRateTable':
+            return i18n.t('Organism resistance rate table')
+        case 'AntibioticResistanceTestRateTable':
+            return i18n.t('Antibiotic resistance test rate table')
+        case 'SecondaryBsiRateTable':
+            return i18n.t('Secondary BSI rate table')
+    }
+}
+
+/**
+ * Localised display label for a {@link ReferenceReportSectionText}.
+ * Same pattern as {@link reportElementLabel}: literal `i18n.t('...')`
+ * per value so the strings extract into `i18n/en.pot`.
+ */
+export const referenceReportSectionTextLabel = (
+    section: ReferenceReportSectionText
+): string => {
+    switch (section) {
+        case 'PatientPopulation':
+            return i18n.t('Patient population')
+        case 'Nosocomial':
+            return i18n.t('Nosocomial')
+        case 'InfectiousAgents':
+            return i18n.t('Infectious agents')
+        case 'RiskFactors':
+            return i18n.t('Risk factors')
+        case 'Surgery':
+            return i18n.t('Surgery')
+    }
+}

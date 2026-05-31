@@ -22,8 +22,10 @@ import {
     confidenceIntervalModeLabel,
     ReferenceReportElement,
     ReferenceReportElementValues,
+    referenceReportSectionTextLabel,
     ReferenceReportSectionText,
     ReferenceReportSectionTextValues,
+    reportElementLabel,
 } from './enums'
 
 /**
@@ -88,12 +90,6 @@ const defaultValues: ReferenceReportFormValues = {
     locale: '',
     outputFormat: 'html',
 }
-
-const splitPascalCase = (value: string): string =>
-    value
-        .replace(/([A-Z])/g, ' $1')
-        .trim()
-        .replace(/^(.)(.*)/, (_, first, rest) => first + rest.toLowerCase())
 
 interface ReferenceReportFormProps {
     onSubmit?: (values: ReferenceReportFormValues) => void
@@ -384,7 +380,7 @@ const ReferenceReportForm: FC<ReferenceReportFormProps> = ({
                         <MultiSelectOption
                             key={element}
                             value={element}
-                            label={splitPascalCase(element)}
+                            label={reportElementLabel(element)}
                         />
                     ))}
                 </MultiSelectField>
@@ -401,7 +397,7 @@ const ReferenceReportForm: FC<ReferenceReportFormProps> = ({
                         <MultiSelectOption
                             key={element}
                             value={element}
-                            label={splitPascalCase(element)}
+                            label={reportElementLabel(element)}
                         />
                     ))}
                 </MultiSelectField>
@@ -422,7 +418,7 @@ const ReferenceReportForm: FC<ReferenceReportFormProps> = ({
                         <MultiSelectOption
                             key={section}
                             value={section}
-                            label={splitPascalCase(section)}
+                            label={referenceReportSectionTextLabel(section)}
                         />
                     ))}
                 </MultiSelectField>
@@ -439,7 +435,7 @@ const ReferenceReportForm: FC<ReferenceReportFormProps> = ({
                         <MultiSelectOption
                             key={section}
                             value={section}
-                            label={splitPascalCase(section)}
+                            label={referenceReportSectionTextLabel(section)}
                         />
                     ))}
                 </MultiSelectField>
