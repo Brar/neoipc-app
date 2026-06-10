@@ -1,0 +1,48 @@
+NeoIPC app — Copyright and licensing
+====================================
+
+Copyright (c) 2026 The NeoIPC Project Consortium.
+
+Source code in this repository is licensed under the MIT License; see LICENSE
+for the full text. Documentation and other content are licensed under the
+Creative Commons Attribution licence (CC-BY), unless stated otherwise.
+
+------------------------------------------------------------------------------
+Exception: NeoIPC symbol / logo and derived icon assets
+------------------------------------------------------------------------------
+
+Copyright (c) Fondazione Penta ETS. All rights reserved.
+
+The image assets listed below depict the NeoIPC symbol, which is owned by
+Fondazione Penta ETS. They are used here under the NeoIPC brand guideline
+(NeoIPC Visual Guideline v1.0), which permits use of the symbol on its own where
+the full logo does not fit (the app-icon case), provided the symbol's structure
+and proportions are not altered — these assets recolour the symbol and add a
+background tile/matte only.
+
+These assets are NOT covered by the MIT or CC-BY licences above. They may not be
+reused, redistributed, or modified outside this application without permission
+from Fondazione Penta ETS; confirm any reuse with the NeoIPC / Penta team before
+publishing.
+
+Affected files:
+
+    public/dhis2-app-icon.png
+    public/favicon.ico
+    public/favicon-16x16.png
+    public/favicon-32x32.png
+    public/favicon-48x48.png
+    public/apple-touch-icon.png
+    public/android-chrome-192x192.png
+    public/android-chrome-384x384.png
+    public/mstile-150x150.png
+    public/maskable-512x512.png
+    public/neoipc-mono-white.png
+    public/icon.svg
+    public/safari-pinned-tab.svg
+    design/apphub-logo-512x512.png
+    design/masters/neoipc-icon-tile-blue.svg
+    design/masters/neoipc-icon-tile-white.svg
+    design/masters/neoipc-icon-tile-bleed.svg
+    design/masters/neoipc-icon-clear-color.svg
+    design/masters/neoipc-icon-clear-mono.svg
